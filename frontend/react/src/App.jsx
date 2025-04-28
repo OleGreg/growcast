@@ -33,3 +33,29 @@ function App() {
 }
 
 export default App
+
+// utils/getWeather.js
+
+export async function getWeather() {
+const cachedWeather = JSON.parse(localStorage.getItem("weatherData"));
+const now = Date.now();
+
+if (cachedWeather && now - cachedWeather.timestamp < 30 * 60 * 1000) {
+  console.log("Using cached weather data");
+  return cachedWeather.data;
+}
+
+const response = await fetch("/weather");
+if (!response.ok) {
+  throw new Error("Failed to fetch weather");
+}
+
+const data = await response.json();
+localStorage.setItem(
+  "weatherData",
+  JSON.stringify({ data: data, timestamp: now })
+);
+
+console.log("Fetched new weather data");
+return data;
+}
