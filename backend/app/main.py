@@ -1,13 +1,23 @@
 # backend/app/main.py
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from app.services.geo import get_coordinates_by_ip
 from app.services.weather import get_weather_by_coordinates
-from app.config import TESTING_IP
+from app.config import TESTING_IP, ALLOWED_ORIGINS
 
-#Instantiate FastAPI object
+# Instantiate FastAPI object
 app = FastAPI()
 
-#Create weather route
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+# Create weather route
 @app.get("/weather")
 async def get_weather(incoming_request: Request):
     # Get the client IP from the incoming request. Set the client ip to the TESTING_IP environment variable if it exists
