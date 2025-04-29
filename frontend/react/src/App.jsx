@@ -1,6 +1,7 @@
 import { useWeather } from './hooks/useWeather';
 import loadingImage from './assets/Coneflower.svg';
 import CurrentWeatherCard from './components/CurrentWeatherCard';
+import DailyForecast from './components/DailyForecast';
 import HourlyForecast from './components/HourlyForecast';
 import './App.css'
 
@@ -9,21 +10,28 @@ function App() {
 
   if (loading) {
     return (
-      <div>
+      <main>
         <img src={loadingImage} alt="Loading..." />
-      </div>
+      </main>
     );
   }
 
   return (
-    <div>
-      <h1>GrowCast</h1>
-      <h2>Weather Data for {weatherData.city}, {weatherData.region}</h2>
-      <CurrentWeatherCard weatherData={weatherData} />
-      {weatherData && (
-        <HourlyForecast hourly={weatherData.weather.hourly} />
-      )}
-    </div>
+    <main>
+      <div className="container">
+        <h1 className="mb-5">GrowCast</h1>
+        <h2 className="mb-14">Weather Data for {weatherData.city}, {weatherData.region}</h2>
+        <div className="flex flex-row gap-x-10">
+          <CurrentWeatherCard weatherData={weatherData} />
+          {weatherData && (
+            <HourlyForecast hourly={weatherData.weather.hourly} />
+          )}
+          {weatherData && (
+            <DailyForecast daily={weatherData.weather.daily} />
+          )}
+        </div>
+      </div>
+    </main>
   );
 }
 
