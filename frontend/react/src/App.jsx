@@ -1,11 +1,17 @@
 import { useWeather } from './hooks/useWeather';
+import loadingImage from './assets/Coneflower.svg';
+import CurrentWeatherCard from './components/CurrentWeatherCard';
 import './App.css'
 
 function App() {
   const { weatherData, loading } = useWeather();
 
   if (loading) {
-    return <div>Loading weather data...</div>;
+    return (
+      <div>
+        <img src="{loadingImage}" alt="Loading..." />
+      </div>
+    );
   }
 
   return (
@@ -13,9 +19,7 @@ function App() {
       <h1>GrowCast</h1>
       <h2>Weather Data for {weatherData.city}, {weatherData.region}</h2>
       {weatherData ? (
-        <div>
-          <pre><strong>All Data:</strong> {JSON.stringify(weatherData, null, 2)}</pre>
-        </div>
+        <CurrentWeatherCard weatherData={weatherData} />
       ) : (
         <p>No weather data available</p>
       )}
