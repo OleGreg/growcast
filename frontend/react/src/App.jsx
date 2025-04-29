@@ -1,6 +1,7 @@
 import { useWeather } from './hooks/useWeather';
 import loadingImage from './assets/Coneflower.svg';
 import CurrentWeatherCard from './components/CurrentWeatherCard';
+import HourlyForecast from './components/HourlyForecast';
 import './App.css'
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
   if (loading) {
     return (
       <div>
-        <img src="{loadingImage}" alt="Loading..." />
+        <img src={loadingImage} alt="Loading..." />
       </div>
     );
   }
@@ -18,10 +19,9 @@ function App() {
     <div>
       <h1>GrowCast</h1>
       <h2>Weather Data for {weatherData.city}, {weatherData.region}</h2>
-      {weatherData ? (
-        <CurrentWeatherCard weatherData={weatherData} />
-      ) : (
-        <p>No weather data available</p>
+      <CurrentWeatherCard weatherData={weatherData} />
+      {weatherData && (
+        <HourlyForecast hourly={weatherData.weather.hourly} />
       )}
     </div>
   );
