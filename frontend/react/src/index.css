@@ -1,5 +1,45 @@
+@font-face {
+  font-family: 'Cochin';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url('@fonts/CochinRoman/font.woff2') format('woff2'),
+    url('@fonts/CochinRoman/font.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Cochin';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url('@fonts/CochinBold/font.woff2') format('woff2'),
+    url('@fonts/CochinBold/font.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Cochin';
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+  src:
+    url('@fonts/CochinItalic/font.woff2') format('woff2'),
+    url('@fonts/CochinItalic/font.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Cochin';
+  font-display: swap;
+  font-style: italic;
+  font-weight: 700;
+  src:
+    url('@fonts/CochinBoldItalic/font.woff2') format('woff2'),
+    url('@fonts/CochinBoldItalic/font.woff') format('woff');
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Cochin', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

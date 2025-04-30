@@ -1,4 +1,5 @@
 // src/components/CurrentWeatherCard.jsx
+import { toTitleCase } from "../services/formattingService";
 
 const CurrentWeatherCard = ({ weatherData }) => {
   if (!weatherData) {
@@ -19,10 +20,10 @@ const CurrentWeatherCard = ({ weatherData }) => {
             src={`https://openweathermap.org/img/wn/${w.icon}@2x.png`} 
             alt={w.description} 
           />
-          <p><strong>{w.main}:</strong> {w.description}</p>
+          <p>{toTitleCase(w.description)}</p>
         </div>
       ))}
-      <p><strong>Humidity:</strong> {weatherData.weather.current.humidity}%</p>
+      <p>{weatherData.weather.current.humidity}% Humidity</p>
     </div>
   );
 }

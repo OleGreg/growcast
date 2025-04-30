@@ -11,7 +11,7 @@ const HourlyForecast = ({ hourly }) => {
     return (
       <li key={index} className="hour-card flex flex-row gap-x-2">
         <p><strong>{time}</strong></p>
-        <p>{Math.round(hour.temp)}°</p>
+        <p>{Math.round(hour.temp)}°F</p>
         <p>{hour.weather[0].main}</p>
       </li>
     );
@@ -19,7 +19,7 @@ const HourlyForecast = ({ hourly }) => {
 
   return (
     <div>
-      <h3 className="mb-3">Hourly Forecast</h3>
+      <h2 className="mb-2">Hourly Forecast</h2>
       <ul className="flex flex-col max-h-44 overflow-y-scroll px-2">
         {hourly_forecasts}
       </ul>
