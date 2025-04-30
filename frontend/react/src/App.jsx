@@ -4,6 +4,7 @@ import CurrentWeatherCard from './components/CurrentWeatherCard';
 import DailyForecast from './components/DailyForecast';
 import HourlyForecast from './components/HourlyForecast';
 import './App.css'
+import SevereWeatherAlert from './components/SevereWeatherAlert';
 
 function App() {
   const { weatherData, loading } = useWeather();
@@ -21,7 +22,7 @@ function App() {
       <div className="container">
         <h1 className="mb-5">GrowCast</h1>
         <h2 className="mb-14">Weather Data for {weatherData.city}, {weatherData.region}</h2>
-        <div className="flex flex-row gap-x-10">
+        <div className="flex flex-row gap-x-10 mb-10">
           <CurrentWeatherCard weatherData={weatherData} />
           {weatherData && (
             <HourlyForecast hourly={weatherData.weather.hourly} />
@@ -29,6 +30,11 @@ function App() {
           {weatherData && (
             <DailyForecast daily={weatherData.weather.daily} />
           )}
+        </div>
+        <div>
+          {weatherData.weather.alerts && weatherData.weather.alerts.map((alert, index) => (
+            <SevereWeatherAlert key={index} alert={alert} />
+          ))}
         </div>
       </div>
     </main>
