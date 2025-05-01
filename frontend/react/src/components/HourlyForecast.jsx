@@ -1,6 +1,11 @@
 // src/components/HourlyForecast.jsx
+import { toTitleCase } from "../services/formattingService";
 
 const HourlyForecast = ({ hourly }) => {
+  if (!hourly) {
+    return <div>No weather data available</div>;
+  }
+
   // Only show the next 12 hours
   const hoursToDisplay = hourly.slice(1, 13);
 
@@ -12,14 +17,14 @@ const HourlyForecast = ({ hourly }) => {
       <li key={index} className="hour-card flex flex-row gap-x-2">
         <p><strong>{time}</strong></p>
         <p>{Math.round(hour.temp)}°F</p>
-        <p>{hour.weather[0].main}</p>
+        <p>{toTitleCase(hour.weather[0].description)}</p>
       </li>
     );
   })
 
   return (
     <div>
-      <h2 className="mb-2">Hourly Forecast</h2>
+      <h3 className="mb-2">Hourly Forecast</h3>
       <ul className="flex flex-col max-h-44 overflow-y-scroll px-2">
         {hourly_forecasts}
       </ul>

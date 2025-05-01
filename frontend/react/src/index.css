@@ -1,3 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sproutgreen: #079C40;
+  --color-skyblue: #4A90E2;
+  --color-sunlityellow: #FFD447;
+  --color-coralbloom: #FF6B6B;
+  --color-deepindigo: #3A0CA3;
+  --color-mutedlavender: #B497D6;
+  --color-coolmint: #9FFFCB;
+  --color-earthclay: #C87D4A;
+  --color-slategray: #4A4A4A;
+}
+
+.bg-sunshine {
+  background: radial-gradient(circle at center, #fef3c7 0%, #fde68a 100%);
+}
+.bg-cloudy {
+  background: radial-gradient(circle at center, #e3e6ea 0%, #b0b6bf 100%);
+}
+.bg-rain {
+  background: radial-gradient(circle at center, #cbd5e1 0%, #94a3b8 100%);
+}
+.bg-thunderstorm {
+  background: radial-gradient(circle at center, #b3bdd1 0%, #687e9d 100%);
+}
+.bg-snow {
+  background: radial-gradient(circle at center, #f9fafb 0%, #e5e7eb 100%);
+}
+.bg-fog {
+  background: radial-gradient(circle at center, #e5e7eb 0%, #9ca3af 100%);
+}
+
 @font-face {
   font-family: 'Cochin';
   font-display: swap;
@@ -42,28 +75,27 @@
   font-family: 'Cochin', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @apply text-slategray;
 }
-
-@import "tailwindcss";
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  @apply text-7xl font-bold text-sproutgreen;
 }
+
+h2 {
+  @apply text-xl;
+}
+
+/* Daily Forecast */

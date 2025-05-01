@@ -1,57 +1,49 @@
-// src/components/DailyForecast.jsx
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Keyboard } from 'swiper/modules';
-import EffectMaterial from '../assets/scripts/effect-material.esm.js';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import '../assets/styles/effect-material.css';
-import { toTitleCase } from '../services/formattingService.js';
+import { useState } from 'react';
+import ForecastModal from './ForecastModal';
 
 const DailyForecast = ({ daily }) => {
-  const daysToDisplay = daily.slice(1, 8); // Skip today, show next 7 days
-  const weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const [selectedDay, setSelectedDay] = useState(null);
+
+  if (!daily) return <div>No weather data available</div>;
+
+  const daysToDisplay = daily.slice(1, 8);
+  const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return (
-    <div className="max-w-xl">
-      <h2 className="mb-5">7 Day Forecast</h2>
-      <Swiper
-        className="w-full h-48"
-        modules={[Pagination, EffectMaterial, Keyboard]}
-        keyboard={{ enabled: true}}
-        effect="material"
-        materialEffect={{
-          slideSplitRatio: 0.65,
-        }}
-        spaceBetween={10}
-        slidesPerView={2}
-        pagination={{ clickable: true }}
-      >
+    <div>
+      <h3 className="mb-2">7 Day Forecast</h3>
+      <div className="flex flex-col gap-5 h-44 overflow-y-scroll">
         {daysToDisplay.map((day, index) => {
-          const date = new Date(day.dt * 1000)
+          const date = new Date(day.dt * 1000);
           const dayName = weekdayNames[date.getDay()];
           const icon = day.weather[0].icon;
 
           return (
-            <SwiperSlide key={index}>
-              <div className="swiper-material-wrapper">
-                <div className="swiper-material-content cursor-pointer flex flex-col px-5">
-                  <p className="font-bold">{dayName}</p>
-                  <img 
-                    src={`https://openweathermap.org/img/wn/${icon}.png`}
-                    data-swiper-material-scale="1.25"
-                    alt={day.weather[0].description} 
-                  />
-                  <p><strong>High:</strong> {Math.round(day.temp.max)}°F</p>
-                  <p><strong>Low:</strong> {Math.round(day.temp.min)}°F</p>
-                  <p>{toTitleCase(day.weather[0].description)}</p>
-                </div>
+            <div
+              key={index}
+              className="cursor-pointer relative bg-white/70 hover:bg-white/25 transition-colors backdrop-blur-sm rounded-xl p-4 shadow-md flex flex-row text-center items-center gap-x-5 h-24"
+              onClick={() => setSelectedDay(day)}
+            >
+              <p className="font-bold text-lg w-9">{dayName}</p>
+              <div className="bg-skyblue rounded-md">
+                <img
+                  src={`https://openweathermap.org/img/wn/${icon}.png`}
+                  alt={day.weather[0].description}
+                />
               </div>
-            </SwiperSlide>
+              <p><strong>High:</strong> {Math.round(day.temp.max)}°F</p>
+              <p><strong>Low:</strong> {Math.round(day.temp.min)}°F</p>
+            </div>
           );
         })}
-      </Swiper>
+      </div>
+
+      {selectedDay && (
+        <ForecastModal
+          dayData={selectedDay}
+          onClose={() => setSelectedDay(null)}
+        />
+      )}
     </div>
   );
 };

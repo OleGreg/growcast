@@ -11,15 +11,15 @@ const CurrentWeatherCard = ({ weatherData }) => {
   return (
     <div className="">
       <h3 className="mb-3">Current Weather</h3>
-      <p className="font-bold">{temp_in_farenheit}°F</p>
       {/* Map weatherData to create icons, weather info and description */}
       {weatherData.weather.current.weather.map((w, index) => (
         <div key={index} >
           <img
-            className="mx-auto"
+            className="mx-auto bg-skyblue rounded-md"
             src={`https://openweathermap.org/img/wn/${w.icon}@2x.png`} 
             alt={w.description} 
           />
+          <p className="font-bold">{temp_in_farenheit}°F</p>
           <p>{toTitleCase(w.description)}</p>
         </div>
       ))}
