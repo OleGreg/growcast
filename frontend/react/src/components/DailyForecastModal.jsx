@@ -1,9 +1,10 @@
-// src/components/ForecastModal.jsx
+// src/components/DailyForecastModal.jsx
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { Fragment } from 'react';
 import { format } from 'date-fns';
+import { millimetersToInches } from '../services/formattingService';
 
-const ForecastModal = ({ dayData, onClose }) => {
+const DailyForecastModal = ({ dayData, onClose }) => {
   if (!dayData) return null;
 
   const date = new Date(dayData.dt * 1000);
@@ -35,15 +36,22 @@ const ForecastModal = ({ dayData, onClose }) => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <DialogPanel className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 text-center relative">
-              <DialogTitle className="text-xl font-bold mb-4">
+            <DialogPanel className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 text-center relative border-4 border-skyblue">
+              <DialogTitle className="text-xl font-bold mb-4 grid grid-cols-3 items-center">
+                <div></div>
                 {readableDate}
+                <button
+                  onClick={onClose}
+                  className="w-20 ml-auto text-lg inline-flex justify-center rounded-md bg-skyblue px-4 py-2 text-white font-semibold hover:bg-skyblue/70 transition cursor-pointer"
+                >
+                  Close
+                </button>
               </DialogTitle>
 
               <img
                 src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                 alt={dayData.weather[0].description}
-                className="mx-auto bg-skyblue rounded-md"
+                className="mx-auto bg-skyblue rounded-md w-16"
               />
 
               <div className="mt-4 space-y-2">
@@ -57,19 +65,10 @@ const ForecastModal = ({ dayData, onClose }) => {
                   <p><strong>Wind:</strong> {Math.round(dayData.wind_speed)} mph</p>
                 </div>
                 <div className="flex flex-row justify-center gap-3">
-                  {dayData.rain && <p><strong>Total Rainfall:</strong> {Math.round((dayData.rain / 25.4) * 100) / 100}"</p>}
+                  {dayData.rain && <p><strong>Total Rainfall:</strong> {millimetersToInches(dayData.rain)}"</p>}
                   <p><strong>UVI:</strong> {dayData.uvi} </p>
                 </div>
 
-              </div>
-
-              <div className="absolute top-6 right-6">
-                <button
-                  onClick={onClose}
-                  className="inline-flex justify-center rounded-md bg-skyblue px-4 py-2 text-white font-semibold hover:bg-skyblue/70 transition cursor-pointer"
-                >
-                  Close
-                </button>
               </div>
             </DialogPanel>
           </TransitionChild>
@@ -79,4 +78,4 @@ const ForecastModal = ({ dayData, onClose }) => {
   );
 };
 
-export default ForecastModal;
+export default DailyForecastModal;

@@ -2,100 +2,69 @@
 
 @theme {
   --color-sproutgreen: #079C40;
-  --color-skyblue: #4A90E2;
-  --color-sunlityellow: #FFD447;
-  --color-coralbloom: #FF6B6B;
-  --color-deepindigo: #3A0CA3;
-  --color-mutedlavender: #B497D6;
-  --color-coolmint: #9FFFCB;
-  --color-earthclay: #C87D4A;
-  --color-slategray: #4A4A4A;
-}
+  --color-skyblue: #088FD2;
+  --color-darkbrown: #5B2D04;
+  --color-lightbrown: #EE974B;
 
-.bg-sunshine {
-  background: radial-gradient(circle at center, #fef3c7 0%, #fde68a 100%);
-}
-.bg-cloudy {
-  background: radial-gradient(circle at center, #e3e6ea 0%, #b0b6bf 100%);
-}
-.bg-rain {
-  background: radial-gradient(circle at center, #cbd5e1 0%, #94a3b8 100%);
-}
-.bg-thunderstorm {
-  background: radial-gradient(circle at center, #b3bdd1 0%, #687e9d 100%);
-}
-.bg-snow {
-  background: radial-gradient(circle at center, #f9fafb 0%, #e5e7eb 100%);
-}
-.bg-fog {
-  background: radial-gradient(circle at center, #e5e7eb 0%, #9ca3af 100%);
 }
 
 @font-face {
-  font-family: 'Cochin';
-  font-display: swap;
+  font-family: 'Quicksand';
+  src: url('./assets/fonts/Quicksand-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 900; /* defines the range for variable font */
   font-style: normal;
-  font-weight: 400;
-  src:
-    url('@fonts/CochinRoman/font.woff2') format('woff2'),
-    url('@fonts/CochinRoman/font.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Cochin';
-  font-display: swap;
-  font-style: normal;
-  font-weight: 700;
-  src:
-    url('@fonts/CochinBold/font.woff2') format('woff2'),
-    url('@fonts/CochinBold/font.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Cochin';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 400;
-  src:
-    url('@fonts/CochinItalic/font.woff2') format('woff2'),
-    url('@fonts/CochinItalic/font.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Cochin';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 700;
-  src:
-    url('@fonts/CochinBoldItalic/font.woff2') format('woff2'),
-    url('@fonts/CochinBoldItalic/font.woff') format('woff');
 }
 
 :root {
-  font-family: 'Cochin', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Quicksand', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 500;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply text-slategray;
+  @apply text-darkbrown;
 }
 
 body {
   margin: 0;
+  padding: 0;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
+  @apply text-lg;
 }
 
-h1 {
-  @apply text-7xl font-bold text-sproutgreen;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Quicksand', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 h2 {
-  @apply text-xl;
+  @apply text-2xl font-semibold;
 }
 
-/* Daily Forecast */
+.weather-card {
+  @apply bg-white rounded-lg border-4 border-skyblue p-5;
+
+  h2 {
+    @apply font-bold text-skyblue;
+
+    &.temp {
+      @apply text-darkbrown;
+    }
+  }
+}
+
+.hour-card {
+  @apply font-normal;
+}
+
+.gardening-advice {
+  @apply bg-darkbrown rounded-lg border-4 border-sproutgreen p-5 text-white;
+}

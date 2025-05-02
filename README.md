@@ -12,6 +12,8 @@ Growcast aims to help gardeners make better planting, watering, and care decisio
 - 🔥 FastAPI backend for scalable API services
 - ⚡  React frontend with Vite for speedy dev experience
 - 🐳 Dockerized for easy deployment anywhere
+- 🔒 Privacy focused, user-less functionality
+- ♿ Accessible structure built with @headlessui/react
 
 ## Project Structure
 
