@@ -1,7 +1,7 @@
 # Growcast 🌱
 
 ## Growcast is a web app that combines weather forecasting with personalized gardening advice.  
-## Built with a modern tech stack — React, FastAPI, and Docker
+## Built with a modern tech stack — React, FastAPI, postgreSQL, SQLAlchemy, Docker
 Growcast aims to help gardeners make better planting, watering, and care decisions based on live weather conditions.
 
 ## Features
@@ -19,5 +19,5 @@ Growcast aims to help gardeners make better planting, watering, and care decisio
 
 ```plaintext
 /frontend   # React + Vite frontend
-/backend    # Python FastAPI backend
-docker-compose.yml  # Orchestrates frontend and backend
+/backend    # Python + FastAPI + postgreSQL + SQLAlchemy backend
+docker-compose.yml  # Orchestrates frontend and backend for easy development and deployment
