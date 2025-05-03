@@ -39,4 +39,4 @@ def populate_zipcodes(csv_path):
         session.close()
 
 if __name__ == "__main__":
-    populate_zipcodes("/app/data/zipcodes.csv")
+    populate_zipcodes("/app/data/phzm_us_zipcode_2023.csv")
