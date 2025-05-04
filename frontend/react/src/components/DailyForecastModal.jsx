@@ -3,6 +3,8 @@ import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@
 import { Fragment } from 'react';
 import { format } from 'date-fns';
 import { millimetersToInches } from '../services/formattingService';
+import frostIcon from "../assets/images/frost_alert.svg";
+
 
 const DailyForecastModal = ({ dayData, onClose }) => {
   if (!dayData) return null;
@@ -68,7 +70,17 @@ const DailyForecastModal = ({ dayData, onClose }) => {
                   {dayData.rain && <p><strong>Total Rainfall:</strong> {millimetersToInches(dayData.rain)}"</p>}
                   <p><strong>UVI:</strong> {dayData.uvi} </p>
                 </div>
-
+                {(Math.round(dayData.temp.min) <= 32) &&
+                  <div className="flex flex-row justify-center items-center gap-3">
+                    <img
+                      src={frostIcon}
+                      alt="Frost warning"
+                      className="w-8 h-auto"
+                      title="Frost Alert!"
+                    />
+                    <p className="text-skyblue">Frost warning in effect!</p>
+                  </div>
+                }
               </div>
             </DialogPanel>
           </TransitionChild>
