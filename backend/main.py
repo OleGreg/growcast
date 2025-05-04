@@ -1,10 +1,12 @@
-# backend/app/main.py
-from app.config import TESTING_IP, ALLOWED_ORIGINS
-from fastapi import FastAPI, Request
+# backend/main.py
+from config import TESTING_IP, ALLOWED_ORIGINS
+from fastapi import FastAPI, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from app.services.geo import get_coordinates_by_ip
-from app.services.weather import get_weather_by_coordinates
-from app.services.gardening_tips import get_gardening_tips
+from sqlalchemy.orm import Session
+from db.session import get_db
+from services.geo import get_coordinates_by_ip
+from services.weather import get_weather_by_coordinates
+from services.gardening_tips import get_weather_gardening_tips, get_zone_by_zip
 
 # Instantiate FastAPI object
 app = FastAPI()
@@ -30,7 +32,7 @@ async def get_weather(incoming_request: Request):
     #Get data from the weather API or cache
     weather_data = get_weather_by_coordinates(lat, lon)
     #Get gardening tips from our logic functions based on weather data
-    gardening_tips = get_gardening_tips(weather_data, zip_code)
+    weather_gardening_tips = get_weather_gardening_tips(weather_data, zip_code)
 
     #Return Data
     return {
@@ -41,5 +43,16 @@ async def get_weather(incoming_request: Request):
         "country": country,
         "region": region,
         "weather": weather_data,
-        "gardening_tips": gardening_tips
+        "weather_gardening_tips": weather_gardening_tips
+    }
+
+# Create gardening tips route
+@app.get("/gardening-tips")
+def get_gardening_tips(zip_code: str, db: Session = Depends(get_db)):
+    zone = get_zone_by_zip(zip_code, db)
+    if not zone:
+        return {"error": "Zone not found for ZIP"}
+    return {
+        "zip_code": zip_code,
+        "zone": zone.name
     }

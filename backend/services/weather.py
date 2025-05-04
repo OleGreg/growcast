@@ -1,8 +1,8 @@
-# backend/app/services/weather.py
+# backend/services/weather.py
 import requests
 import time
-from app.config import WEATHER_CACHE_DURATION, WEATHER_API_KEY
-from app.services.cache import is_cache_valid
+from config import WEATHER_CACHE_DURATION, WEATHER_API_KEY
+from services.cache import is_cache_valid
 
 # Create weather cache object
 weather_cache = {}

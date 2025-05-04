@@ -1,8 +1,8 @@
-# backend/app/scripts/populate_zones.py
+# backend/scripts/populate_zones.py
 
 from sqlalchemy.orm import Session
-from app.db.session import engine
-from app.db.models import Zone
+from db.session import engine
+from db.models import Zone
 
 def generate_usda_zones():
     zones = []

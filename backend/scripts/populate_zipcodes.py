@@ -1,6 +1,6 @@
 import csv
-from app.db.session import SessionLocal
-from app.db.models import Zone, ZipCode
+from db.session import SessionLocal
+from db.models import Zone, ZipCode
 
 def populate_zipcodes(csv_path):
     session = SessionLocal()

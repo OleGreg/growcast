@@ -1,8 +1,8 @@
-# backend/app/services/geo.py
+# backend/services/geo.py
 import requests
 import time
-from app.config import IP_CACHE_DURATION
-from app.services.cache import is_cache_valid
+from config import IP_CACHE_DURATION
+from services.cache import is_cache_valid
 
 ip_cache = {}
 
