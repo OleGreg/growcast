@@ -21,3 +21,8 @@ Growcast aims to help gardeners make better planting, watering, and care decisio
 /frontend   # React + Vite frontend
 /backend    # Python + FastAPI + postgreSQL + SQLAlchemy backend
 docker-compose.yml  # Orchestrates frontend and backend for easy development and deployment
+
+Commands to remember:
+docker exec -it [container_name] bash
+alembic upgrade head
+python -m modules_name

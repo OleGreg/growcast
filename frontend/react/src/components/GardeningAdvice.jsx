@@ -1,30 +1,8 @@
-import { useEffect, useState } from "react";
 import pappy from "../assets/images/pappy.png";
-const API_URL = import.meta.env.VITE_API_URL;
+import { useGardeningTips } from "../hooks/useGardeningTips";
 
 function GardeningAdvice({zipCode}) {
-  const [zone, setZone] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchGardeningZone = async () => {
-      try {
-        const response = await fetch(`${API_URL}/gardening-tips?zip_code=${zipCode}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch gardening tips");
-        }
-        const data = await response.json();
-        setZone(data.zone);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGardeningZone();
-  }, [zipCode]);
+  const { gardeningTipsData, loading } = useGardeningTips(zipCode);
 
   return (
     <div className="gardening-advice w-[400px] max-w-full space-y-4">
@@ -37,8 +15,7 @@ function GardeningAdvice({zipCode}) {
       </div>
       <div>
           {loading && <p>Loading...</p>}
-          {error && <p className="text-red-600">{error}</p>}
-          {zone && <p>Your gardening zone is: <strong>{zone}</strong></p>}
+          {gardeningTipsData && <p>Your gardening zone is: <strong>{gardeningTipsData.zone}</strong></p>}
         </div>
     </div>
   );
