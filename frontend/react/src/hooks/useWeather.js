@@ -9,6 +9,7 @@ export function useWeather() {
   async function loadWeather() {
     try {
       const data = await fetchWeather();
+      // console.log('fetching weather data');
       setWeatherData(data);
     } catch (error) {
       console.error('Error fetching weather:', error);

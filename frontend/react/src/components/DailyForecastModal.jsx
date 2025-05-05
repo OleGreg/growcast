@@ -44,7 +44,7 @@ const DailyForecastModal = ({ dayData, onClose }) => {
                 {readableDate}
                 <button
                   onClick={onClose}
-                  className="w-20 ml-auto text-lg inline-flex justify-center rounded-md bg-skyblue px-4 py-2 text-white font-semibold hover:bg-skyblue/70 transition cursor-pointer"
+                  className="modal-close-button"
                 >
                   Close
                 </button>

@@ -34,7 +34,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-  @apply text-lg;
+  @apply text-lg max-md:text-base;
 }
 
 h1,
@@ -46,7 +46,7 @@ h5 {
 }
 
 h2 {
-  @apply text-2xl font-semibold;
+  @apply text-2xl max-md:text-xl font-semibold;
 }
 
 .weather-card {
@@ -64,10 +64,22 @@ h2 {
   &.daily-forecast-card {
     @apply p-0;
   }
+
+  &.frost-alert {
+    @apply bg-skyblue text-white border-white hover:bg-[#5DA7F2];
+
+    h2 {
+      @apply text-white;
+    }
+  }
 }
 
 .hour-card {
   @apply font-normal;
+}
+
+.modal-close-button {
+  @apply text-lg ml-auto w-[min-content] rounded-md bg-skyblue px-2 py-2 text-white font-semibold hover:bg-skyblue/70 transition-colors cursor-pointer;
 }
 
 .gardening-advice {
@@ -75,7 +87,7 @@ h2 {
 }
 
 .frost-pulse {
-  animation-duration: 5s;
+  animation-duration: 4s;
   animation-name: white-blue-pulse;
   animation-iteration-count: infinite;
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1)

@@ -21,7 +21,7 @@ const HourlyForecast = ({ hourly }) => {
       <div className="weather-card w-[400px] max-w-full">
         <Disclosure>
           {({ open }) => (
-            <>
+            <div>
               <DisclosureButton className="toggle-click flex justify-between items-center w-full cursor-pointer">
                 <h2>Hourly Forecast</h2>
                 <img
@@ -74,7 +74,7 @@ const HourlyForecast = ({ hourly }) => {
                   </ul>
                 </DisclosurePanel>
               </Transition>
-            </>
+            </div>
           )}
         </Disclosure>
       </div>

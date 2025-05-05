@@ -11,10 +11,23 @@ from services.gardening_tips import get_weather_gardening_tips, get_zone_by_zip
 # Instantiate FastAPI object
 app = FastAPI()
 
+origins = [
+    "http://localhost:5173",
+    "http://localhost",
+    "https://localhost:5173",
+    "https://localhost",
+    "http://growcast.local",
+    "https://growcast.local",
+    "https://api.growcast.local",
+    "http://api.growcast.local",
+    "https://growcast.app",
+    "https://www.growcast.app",
+]
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -42,6 +55,7 @@ async def get_weather(incoming_request: Request):
         "city": city,
         "country": country,
         "region": region,
+        "zip": zip_code,
         "weather": weather_data,
         "weather_gardening_tips": weather_gardening_tips
     }

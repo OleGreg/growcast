@@ -15,7 +15,6 @@ const DailyForecast = ({ daily }) => {
 
   if (!daily) return <div>No weather data available</div>;
 
-  const daysToDisplay = daily.slice(0, 8);
   const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return (
@@ -23,9 +22,9 @@ const DailyForecast = ({ daily }) => {
       <div className="weather-card daily-forecast-card w-[400px] max-w-full">
         <Disclosure>
           {({ open }) => (
-            <>
+            <div>
               <DisclosureButton className="toggle-click flex justify-between items-center w-full cursor-pointer p-5">
-                <h2>7 Day Forecast</h2>
+                <h2>Daily Forecast</h2>
                 <img
                   src={toggleArrow}
                   alt="Toggle"
@@ -42,9 +41,9 @@ const DailyForecast = ({ daily }) => {
                 leaveFrom="opacity-100 max-h-screen"
                 leaveTo="opacity-0 max-h-0"
               >
-                <DisclosurePanel static className="toggle-body overflow-hidden">
+                <DisclosurePanel as="div" className="toggle-body overflow-hidden">
                   <ul className="flex flex-col gap-y-4 px-5 pb-5">
-                    {daysToDisplay.map((day, index) => {
+                    {daily.map((day, index) => {
                       const date = new Date(day.dt * 1000);
                       const dayName = weekdayNames[date.getDay()];
                       const icon = day.weather[0].icon;
@@ -68,8 +67,8 @@ const DailyForecast = ({ daily }) => {
                           rounded-md border-2 ${frostClass} cursor-pointer transition-colors hover:bg-sproutgreen/25`}
                           onClick={() => setSelectedDay(day)}
                         >
-                          <p className="text-left w-10"><strong>{dayName}</strong></p>
-                          <p className="text-left w-20">{Math.round(day.temp.max)}° / {Math.round(day.temp.min)}°</p>
+                          <p className="text-left w-14"><strong>{dayName}</strong></p>
+                          <p className="text-left w-26">{Math.round(day.temp.max)}° / {Math.round(day.temp.min)}°</p>
                           <img
                             className="bg-skyblue w-10 rounded-md"
                             src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
@@ -94,7 +93,7 @@ const DailyForecast = ({ daily }) => {
                   </ul>
                 </DisclosurePanel>
               </Transition>
-            </>
+            </div>
           )}
         </Disclosure>
       </div>
