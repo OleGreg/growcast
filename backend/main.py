@@ -37,7 +37,10 @@ app.add_middleware(
 @app.get("/weather")
 async def get_weather(incoming_request: Request):
     # Get the client IP from the incoming request. Set the client ip to the TESTING_IP environment variable if it exists
-    client_ip = incoming_request.client.host
+    # Get the request variableX-Forwarded-For, otherwise internal docker network IP will be sent
+    x_forwarded_for = incoming_request.headers.get("X-Forwarded-For")
+    client_ip = x_forwarded_for.split(",")[0] if x_forwarded_for else incoming_request.client.host
+    print("Client IP:", client_ip)
     client_ip = TESTING_IP or client_ip
 
     #Get data from the geocoordinates API or cache
