@@ -29,20 +29,13 @@ function App() {
             alt="GrowCast Weather App text logo"
           />
         </h1>
-
         <div className="flex flex-col gap-5 items-center max-w-full">
+          <SevereWeatherAlert weatherData={weatherData} />
           <FrostAlert daily={weatherData.weather.daily} />
           <CurrentWeatherCard weatherData={weatherData} />
           <HourlyForecast hourly={weatherData.weather.hourly} />
           <DailyForecast daily={weatherData.weather.daily} />
           <GardeningAdvice zipCode={weatherData.zip} />
-        </div>
-
-        <div>
-          {weatherData.weather.alerts &&
-            weatherData.weather.alerts.map((alert, index) => (
-              <SevereWeatherAlert key={index} alert={alert} />
-            ))}
         </div>
       </div>
     </main>

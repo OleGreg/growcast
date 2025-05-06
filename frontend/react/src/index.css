@@ -72,6 +72,14 @@ h2 {
       @apply text-white;
     }
   }
+
+  &.severe-alert {
+    @apply bg-red-500 text-white border-white hover:bg-red-400;
+
+    h2 {
+      @apply text-white;
+    }
+  }
 }
 
 .hour-card {
@@ -79,7 +87,7 @@ h2 {
 }
 
 .modal-close-button {
-  @apply text-lg ml-auto w-[min-content] rounded-md bg-skyblue px-2 py-2 text-white font-semibold hover:bg-skyblue/70 transition-colors cursor-pointer;
+  @apply text-lg w-[min-content] rounded-md bg-skyblue px-2 py-2 text-white font-semibold hover:bg-skyblue/70 transition-colors cursor-pointer;
 }
 
 .gardening-advice {
