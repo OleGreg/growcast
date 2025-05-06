@@ -25,13 +25,13 @@ const AlertDialog = ({ isOpen, onClose, title, borderColor = "border-skyblue", c
 
       {/* Modal Content */}
       <div
-        className={`relative inline z-10 bg-white rounded-xl shadow-xl p-6 text-center border-4 ${borderColor} overflow-y-auto max-h-[calc(100vh-32px)]`}
+        className={`relative inline z-10 bg-white rounded-xl shadow-xl p-6 border-4 ${borderColor} overflow-y-auto max-h-[calc(100vh-32px)]`}
       >
-        <div className="text-2xl font-bold mb-4 flex flex-row justify-center items-center">
-          <div className="text-center mx-auto">{title}</div>
-          <button onClick={onClose} className="modal-close-button">
+        <div className="text-2xl font-bold mb-4 lg:mb-8 relative">
+          <button onClick={onClose} className="flex ml-auto mb-4 modal-close-button lg:absolute lg:right-0 lg:top-0">
             Close
           </button>
+          <div className="mx-auto lg:relative lg:top-2 pointer-events-none">{title}</div>
         </div>
 
         <div className="text-left text-gray-800 space-y-2">
