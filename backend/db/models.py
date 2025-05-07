@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from db.session import Base
 
@@ -39,3 +39,13 @@ class ZipCode(Base):
 
     #Relationships
     zone = relationship("Zone", back_populates="zip_codes")
+
+class USCities(Base):
+    __tablename__ = "us_cities"
+
+    #Columns
+    id = Column(Integer, primary_key=True, index=True)
+    city = Column(String, index=True)
+    state_id = Column(String, index=True)
+    lat = Column(Float, nullable=False)
+    lon = Column (Float, nullable=False)

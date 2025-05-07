@@ -53,7 +53,7 @@ const HourlyForecast = ({ hourly }) => {
                         <li
                           key={index}
                           className="hour-card flex justify-between px-4 py-2 items-center
-                          rounded-md border-2 border-skyblue cursor-pointer transition-colors hover:bg-sproutgreen/25"
+                          rounded-md border-2 border-skyblue gap-x-2 cursor-pointer transition-colors hover:bg-sproutgreen/25"
                           onClick={() => setSelectedHour(hour)}
                         >
                           <p className="text-left w-14"><strong>{time}</strong></p>

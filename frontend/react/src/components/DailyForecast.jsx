@@ -63,7 +63,7 @@ const DailyForecast = ({ daily }) => {
                       return (
                         <li
                           key={index}
-                          className={`hour-card flex justify-between px-4 py-2 items-center relative
+                          className={`hour-card flex justify-between px-4 gap-x-2 py-2 items-center relative
                           rounded-md border-2 ${frostClass} cursor-pointer transition-colors hover:bg-sproutgreen/25`}
                           onClick={() => setSelectedDay(day)}
                         >

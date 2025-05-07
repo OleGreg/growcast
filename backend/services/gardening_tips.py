@@ -6,6 +6,3 @@ def get_zone_by_zip(zip_code: str, db: Session):
   if zip_entry:
     return zip_entry.zone
   return None
-
-def get_weather_gardening_tips(weather_data, zip_code):
-  return zip_code

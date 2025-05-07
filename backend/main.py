@@ -47,8 +47,6 @@ async def get_weather(incoming_request: Request):
     lat, lon, city, country, region, zip_code = get_coordinates_by_ip(client_ip)
     #Get data from the weather API or cache
     weather_data = get_weather_by_coordinates(lat, lon)
-    #Get gardening tips from our logic functions based on weather data
-    weather_gardening_tips = get_weather_gardening_tips(weather_data, zip_code)
 
     #Return Data
     return {
@@ -59,8 +57,7 @@ async def get_weather(incoming_request: Request):
         "country": country,
         "region": region,
         "zip": zip_code,
-        "weather": weather_data,
-        "weather_gardening_tips": weather_gardening_tips
+        "weather": weather_data
     }
 
 # Create gardening tips route
