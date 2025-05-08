@@ -1,6 +1,15 @@
 // src/hooks/useGardeningTips.js
 import { useState, useEffect } from 'react';
-import { fetchGardeningTips } from '../services/gardeningTipsService';
+const API_URL = import.meta.env.VITE_API_URL;
+
+
+export async function fetchGardeningTips(zip_code) {
+  const response = await fetch(`${API_URL}/gardening-tips?zip_code=${zip_code}`);
+  if (!response.ok) {
+    throw new Error('Network Error');
+  }
+  return await response.json();
+}
 
 export function useGardeningTips(zip_code) {
   const [gardeningTipsData, setGardeningTipsData] = useState(null);
@@ -20,13 +29,6 @@ export function useGardeningTips(zip_code) {
 
   useEffect(() => {
     loadGardeningTips();
-
-    const interval = setInterval(() => {
-      loadGardeningTips();
-    }, 35 * 60 * 1000); //refresh weather data every 35 minutes
-
-    //clean up the interval on unmount
-    return () => clearInterval(interval);
   }, []);
 
   return { gardeningTipsData, loading };
