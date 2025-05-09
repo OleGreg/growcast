@@ -9,6 +9,9 @@ weather_cache = {}
 
 def get_weather_by_coordinates(lat: float, lon: float):
     current_time = time.time()
+    #Round the lat/lon for better caching
+    lat = round(lat, 1)
+    lon = round(lon, 1)
     # Create a location key, used to store and retrieve data from the cache
     location_key = f"{lat},{lon}"
 

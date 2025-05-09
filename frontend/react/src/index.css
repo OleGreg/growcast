@@ -90,8 +90,9 @@ h2 {
   @apply text-lg w-[min-content] rounded-md bg-skyblue px-2 py-2 text-white font-semibold hover:bg-skyblue/70 transition-colors cursor-pointer;
 }
 
-.gardening-advice {
-  @apply bg-darkbrown rounded-lg border-4 border-sproutgreen p-5 text-white;
+.gardening-advice,
+.city-search {
+  @apply bg-darkbrown rounded-lg border-4 border-sproutgreen text-white p-3;
 }
 
 .frost-pulse {
@@ -111,4 +112,15 @@ h2 {
   100% {
     background-color: white;
   }
+}
+
+/* Flower Animations */
+
+.animated-coneflower path {
+  display: none;
+  transition: 1s ease-in-out;
+}
+
+.animated-coneflower .stem-group {
+  transform-origin: bottom center;
 }

@@ -1,14 +1,14 @@
 // src/components/CurrentWeatherCard.jsx
 import { toTitleCase } from "../services/formattingService";
 
-const CurrentWeatherCard = ({ weatherData }) => {
+const CurrentWeatherCard = ({ cityData, weatherData }) => {
   if (!weatherData) {
     return <div>No weather data available</div>;
   }
 
   return (
     <div className="weather-card w-[400px] max-w-full space-y-5">
-      <h2 className="text-skyblue !text-lg font-bold">Currently in {weatherData.city}, {weatherData.region}</h2>
+      <h2 className="text-skyblue !text-lg font-bold">Currently in {cityData.city}</h2>
       <div className="flex flex-row justify-center gap-5 items-center">
         <img
           className="bg-skyblue w-16 rounded-lg"

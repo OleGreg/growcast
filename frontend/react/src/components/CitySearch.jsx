@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCities } from "../hooks/useCities";
 
-const CitySearch = ({onCitySelect}) => {
+const CitySearch = ({ onCitySelect }) => {
   const [search, setSearch] = useState("");
-  const {cities, loading} = useCities();
+  const { cities, loading } = useCities();
   const [filteredCities, setFilteredCities] = useState([]);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     // Filter cities based on search input
@@ -19,36 +20,64 @@ const CitySearch = ({onCitySelect}) => {
     setFilteredCities(results.slice(0, 5));
   }, [search, cities]);
 
-  if(loading) {
-    return "Loading Cities";
-  }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if the click is outside the container (input + list)
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setFilteredCities([]); // Close dropdown
+        setSearch(""); // Clear input
+      }
+    };
 
-  else {
-    return (
-      <div className="w-full max-w-md mx-auto p-4">
+    // Add event listener for clicks
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
+  return (
+    <div className="weather-card city-search w-[400px] max-w-full" ref={containerRef}>
+      {loading ? (
         <input
           type="text"
-          placeholder="Search for a city..."
-          className="w-full p-2 border border-gray-300 rounded"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Loading Cities"
+          className="w-full p-2 border border-white placeholder:text-white rounded"
+          disabled
         />
-        {filteredCities.length > 0 && (
-          <ul className="mt-2 border border-gray-200 rounded shadow">
-            {filteredCities.map((item, index) => (
-              <li
-                key={index}
-                className="p-2 hover:bg-gray-100 cursor-pointer"
-                onClick={onCitySelect}
-              >
-                {item.city}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    );
-  }
-}
+      ) : (
+        <>
+          <input
+            type="text"
+            placeholder="Search for a city..."
+            className="w-full p-2 border-2 border-white placeholder:text-white rounded"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {filteredCities.length > 0 && (
+            <ul className="mt-2 border border-white rounded">
+              {filteredCities.map((item, index) => (
+                <li
+                  key={index}
+                  className="p-2 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => {
+                    onCitySelect(item.lat, item.lon, item.city, item.zip);
+                    setSearch("");
+                    setFilteredCities([]);
+                  }}
+                >
+                  {item.city}
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
 
 export default CitySearch;

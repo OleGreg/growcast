@@ -29,7 +29,7 @@ export function useGardeningTips(zip_code) {
 
   useEffect(() => {
     loadGardeningTips();
-  }, []);
+  }, [zip_code]);
 
   return { gardeningTipsData, loading };
 }

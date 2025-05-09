@@ -49,3 +49,4 @@ class USCities(Base):
     state_id = Column(String, index=True)
     lat = Column(Float, nullable=False)
     lon = Column (Float, nullable=False)
+    zip_code = Column(String, nullable=True)

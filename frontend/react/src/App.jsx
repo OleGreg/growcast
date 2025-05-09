@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import loadingImage from './assets/images/Coneflower.svg';
+import { useState } from 'react';
 import growCastLogo from './assets/images/growcast_logo.svg';
 import CurrentWeatherCard from './components/CurrentWeatherCard';
 import DailyForecast from './components/DailyForecast';
@@ -7,43 +6,38 @@ import HourlyForecast from './components/HourlyForecast';
 import SevereWeatherAlert from './components/SevereWeatherAlert';
 import GardeningAdvice from './components/GardeningAdvice';
 import CitySearch from './components/CitySearch';
+import AnimatedLoading from './components/AnimatedLoading';
 import FrostAlert from './components/FrostAlert';
 const API_URL = import.meta.env.VITE_API_URL;
 
 
 function App() {
   const [ weatherData, setWeatherData ] = useState(null);
+  const [ cityData, setCityData ] = useState(null);
   const [ weatherLoading, setWeatherLoading ] = useState(true);
-  // const { weatherData, loading } = useWeather();
 
-  async function fetchWeather() {
-    const response = await fetch(`${API_URL}/weather`);
+  async function fetchWeather(lat, lon) {
+    const response = await fetch(`${API_URL}/weather-by-coordinates?lat=${lat}&lon=${lon}`);
     if (!response.ok) {
       throw new Error('Network Error');
     }
     return await response.json();
   }
   
-  async function loadWeather() {
+  async function loadWeather(lat, lon, city, zip) {
     try {
-      const data = await fetchWeather();
-      console.log('fetching weather data');
-      console.log(data);
+      const data = await fetchWeather(lat, lon);
       setWeatherData(data);
+      setCityData({
+        "city": city,
+        "zip": zip
+      });
     } catch (error) {
       console.error('Error fetching weather:', error);
     } finally {
-      // setLoading(false);
+      setWeatherLoading(false);
     }
   }
-
-  // if (weatherLoading) {
-  //   return (
-  //     <main>
-  //       <img src={loadingImage} alt="Loading..." />
-  //     </main>
-  //   );
-  // }
 
   return (
     <main className="min-h-screen max-md:p-5 p-14">
@@ -56,13 +50,22 @@ function App() {
           />
         </h1>
         <div className="flex flex-col gap-5 items-center max-w-full">
-            <CitySearch weatherData={weatherData} onCitySelect={loadWeather} />
-            {/* <SevereWeatherAlert weatherData={weatherData} /> */}
-            {/* <FrostAlert daily={weatherData.weather.daily} /> */}
-            <CurrentWeatherCard weatherData={weatherData} />
-            {/* <HourlyForecast hourly={weatherData.weather.hourly} /> */}
-            {/* <DailyForecast daily={weatherData.weather.daily} /> */}
-            {/* <GardeningAdvice zipCode={weatherData.zip} /> */}
+            <CitySearch onCitySelect={loadWeather} />
+            { weatherLoading &&
+              <div className="max-md:scale-75 origin-top">
+                <AnimatedLoading />
+              </div>
+            } 
+            { !weatherLoading &&
+              <>
+                <CurrentWeatherCard cityData={cityData} weatherData={weatherData} />
+                <SevereWeatherAlert weatherData={weatherData} />
+                <FrostAlert daily={weatherData.weather.daily} />
+                <HourlyForecast hourly={weatherData.weather.hourly} />
+                <DailyForecast daily={weatherData.weather.daily} />
+                <GardeningAdvice zipCode={cityData.zip} />
+              </>
+            }
         </div>
       </div>
     </main>

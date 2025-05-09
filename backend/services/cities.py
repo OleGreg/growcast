@@ -8,7 +8,8 @@ def get_city_data(db: Session):
       {
         "city": f"{city.city}, {city.state_id}",
         "lat": city.lat,
-        "lon": city.lon
+        "lon": city.lon,
+        "zip": city.zip_code
       }
       for city in city_data
     ]

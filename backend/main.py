@@ -1,6 +1,6 @@
 # backend/main.py
 from config import TESTING_IP, ALLOWED_ORIGINS
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Request, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from db.session import get_db
@@ -63,18 +63,18 @@ async def get_weather(incoming_request: Request):
 
 # Create weather route
 @app.get("/weather-by-coordinates")
-async def get_weather(lat: str, lon: str):
+async def get_weather(lat: float, lon: float):
     weather_data = get_weather_by_coordinates(lat, lon)
+
+    if weather_data is None:
+        raise HTTPException(status_code=500, detail="Failed to fetch weather data.")
+    
+    weather_data = get_weather_by_coordinates(lat, lon)
+
+    # print(weather_data)
 
     #Return Data
     return {
-        "ip": client_ip,
-        "latitude": lat,
-        "longitude": lon,
-        "city": city,
-        "country": country,
-        "region": region,
-        "zip": zip_code,
         "weather": weather_data
     }
 

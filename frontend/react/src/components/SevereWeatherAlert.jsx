@@ -15,7 +15,7 @@ const SevereWeatherAlerts = ({ weatherData }) => {
   return (
     <>
       {alerts.map((alert, index) => {
-        const { sender_name, event, start, end, description, tags } = alert;
+        const { sender_name, event, start, end, description } = alert;
 
         const startTime = formatTime(start);
         const endTime = formatTime(end);
@@ -42,7 +42,6 @@ const SevereWeatherAlerts = ({ weatherData }) => {
               <p><strong>Start:</strong> {startTime}</p>
               <p><strong>End:</strong> {endTime}</p>
               <p className="whitespace-pre-line mt-7">{description}</p>
-              {/* {tags.length > 0 && <p><strong>Tags:</strong> {tags.join(', ')}</p>} */}
             </AlertDialog>
           </div>
         );

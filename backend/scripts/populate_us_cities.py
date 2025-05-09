@@ -12,6 +12,7 @@ def populate_us_cities(csv_path):
                 state_id = row.get("state_id")
                 lat = row.get("lat")
                 lon = row.get("lng")
+                zips = row.get("zips")
 
                 # Skip if any required value is missing
                 if not city or not state_id or not lat or not lon:
@@ -23,6 +24,11 @@ def populate_us_cities(csv_path):
                     lon = float(lon)
                 except ValueError:
                     continue
+
+                # Extract first ZIP code, if available
+                zip_code = None
+                if zips:
+                    zip_code = zips.strip().split(" ")[0]
 
                 # Check if this city already exists
                 exists = session.query(USCities).filter_by(
@@ -38,7 +44,8 @@ def populate_us_cities(csv_path):
                     city=city,
                     state_id=state_id,
                     lat=lat,
-                    lon=lon
+                    lon=lon,
+                    zip_code=zip_code
                 )
                 session.add(new_city)
 
