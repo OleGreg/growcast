@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from db.session import get_db
 from services.geo import get_coordinates_by_ip
 from services.weather import get_weather_by_coordinates
-from services.gardening_tips import get_zone_by_zip
+from services.gardening_tips import get_plant_advice
 from services.cities import get_city_data
 
 # Instantiate FastAPI object
@@ -78,17 +78,6 @@ async def get_weather(lat: float, lon: float):
         "weather": weather_data
     }
 
-# Create gardening tips route
-@app.get("/gardening-tips")
-def get_gardening_tips(zip_code: str, db: Session = Depends(get_db)):
-    zone = get_zone_by_zip(zip_code, db)
-    if not zone:
-        return {"error": "Zone not found for ZIP"}
-    return {
-        "zip_code": zip_code,
-        "zone": zone.name
-    }
-
 # Create Get Cities route
 @app.get("/us-cities")
 def get_us_cities(db: Session = Depends(get_db)):
@@ -99,3 +88,16 @@ def get_us_cities(db: Session = Depends(get_db)):
         "city_data" : city_data
     }
 
+@app.get("/gardening-tips")
+def get_gardening_tips(zip_code: str, db: Session = Depends(get_db)):
+    plant_advice = get_plant_advice(zip_code, db)
+
+    if "error" in plant_advice:
+        raise HTTPException(status_code=404, detail=plant_advice["error"])
+
+    return {
+        "zip_code": zip_code,
+        "zone": plant_advice["zone"],
+        "season": plant_advice["season"],
+        "suggested_crops": plant_advice["suggested_crops"],
+    }
